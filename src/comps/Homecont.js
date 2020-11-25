@@ -17,9 +17,9 @@ function Homecont() {
     let time = new Date().getHours()
     if(time >= 0 && time < 12) 
       setDaytime('Morning') 
-    else if(time >= 12 && time <=5)
+    else if(time >= 12 && time <=17)
       setDaytime('Afternoon')
-    else 
+    else  
       setDaytime('Evening')
   },[])
 

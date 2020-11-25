@@ -15,6 +15,8 @@ function Card(props) {
     temprecipe.ratings = props.rec.ratings
     temprecipe.preptime = props.rec.preptime
     temprecipe.calories = props.rec.calories
+    temprecipe.notes = props.rec.notes
+    temprecipe.ingredients = props.rec.ingredients
   }
 
   return (
