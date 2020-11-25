@@ -1,11 +1,14 @@
-import React from "react";
-import "./styles.css";
+import React from "react"
+import { BrowserRouter as Router,Switch,Route,Link,useHistory, Redirect } from "react-router-dom"
+import AppContainer from "./comps/AppContainer"
+import "./styles.css"
 
 export default function App() {
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
+      <Router>
+        <AppContainer />
+      </Router>
     </div>
   );
 }
