@@ -56,8 +56,8 @@ button {
   outline: none;
   cursor: pointer;
   border: none;
-  transition: all 0.3s;
-  border-radius: 10px;
+  transition: all 0.2s;
+  border-radius: 40px;
   padding: 10px 20px;
   background: var(--color);
   color: #fff;
@@ -113,10 +113,17 @@ hr {
 .homecont {
   background: #fff;
   height: 100vh;
+  padding: 40px 30px;
+  overflow: hidden;
 }
 .navbar {
-  background: var(--color);
+  background: #f5f5f5;
   height: 100vh;
+  padding: 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
 }
 .logocont {
   position: relative;
@@ -130,15 +137,33 @@ hr {
   width: 100%;
   border-radius: 0 70px 0 0;
   display: flex;
-  justify-content: center;
+  padding: 50px 0;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
 }
+.menu .innermenu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.menu .innermenu .activelink {
+  background: rgba(255,255,255,0.3);
+}
+.menu button {
+  background: rgba(255,255,255,0.3);
+  padding: 15px 20px;
+  color: #333;
+}
+.menu button:hover {
+  background: rgba(255,255,255,0.6);
+} 
 .menu a {
   margin: 15px auto;
   padding: 8px 15px;
   border-radius: 50px;
-  transition: all 0.3s;
+  transition: all 0.2s;
   color: #555;
 }
 .menu a:hover {
@@ -162,23 +187,179 @@ hr {
   font-size: 40px;
   color: var(--color);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.navbar .topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.navbar .topbar i {
+  color: #555;
+  padding: 5px;
+  font-size: 20px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.navbar .topbar i:hover {
+  color: var(--color);
+}
+.navbar .topbar img {
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.hometitles {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.hometitles h2 {
+  color: #555;
+  font-size: 25px;
+}
+.hometitles h2 span {
+  display: block;
+  font-size: 14px;
+  color: #bbb;
+  font-weight: 500;
+}
+.maininputcont {
+  position: relative;
+} 
+.maininputcont input {
+  position: relative;
+  width: 600px;
+  padding: 15px;
+  border-radius: 40px;
+  background: #f5f5f5;
+  padding-left: 50px;
+}
+.maininputcont i {
+  position: absolute;
+  font-size: 17px;
+  color: #ccc;
+  z-index: 10;
+  top: 14px;
+  left: 20px;
+}
+.apppage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  overflow-y: scroll;
+  border-radius: 10px 10px 0 0;
+  min-height: 60vh;
+}
+.apppage::-webkit-scrollbar {
+  display: none;
+}
+.appsection {
+  position: relative;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  grid-gap: 30px;
+  flex-wrap: wrap;
+}
+.appsection > h4 {
+  color: #555;
+  flex-basis: 100%
+}
+.cardcont {
+  position: relative;
+  height: 370px;
+  width: 230px; 
+  border-radius: 20px;
+  background: #fff;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.07);
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 30px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.cardcont:hover {
+  box-shadow: 0 3px 15px rgba(0,0,0,0.47);
+}
+.cardcont::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
+  z-index: 0;
+}
+.cardcont .cardcontent {
+  position: relative;
+  z-index: 10;
+}
+.cardcont h5 {
+  color: #fff;
+  font-size: 19px;
+  width: 100px;
+}
+.cardcont h6 {
+  font-size: 13px;
+  color: #bbb;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.cardcont .ratingsdiv {
+  position: relative;
+  margin-top: 10px;
+}
+.cardcont .ratingsdiv i {
+  color: var(--color);
+  font-size: 13px;
+  margin-right: 4px;
+}
+.cardcont .cardinfo {
+  position: relative;
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  grid-gap: 5px 20px;
+}
+.cardcont .cardinfo small {
+  color: #aaa;
+  font-weight: 300;
+}
+.cardcont .cardinfo small i {
+  margin-right: 5px;
+}
+ 
+.covercont {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+}
+.covercont::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0) 100%);
+  z-index: 0;
+}
 
 
 

@@ -1,21 +1,27 @@
 import React from 'react'
-import { BrowserRouter as Router,Switch,Route,Link,useHistory } from "react-router-dom"
+import { BrowserRouter as Router,Switch,Route,NavLink,useHistory } from "react-router-dom"
  
 
 function Sidebar() {
   return (
     <div className="sidebar">
       <div className="logocont">
-        <i class="fas fa-egg-fried"></i>
+        <i className="fas fa-egg-fried"></i>
         <h3>Recipify</h3>
       </div>
        <div className="menu">
-          <Link to="/"><i class="fad fa-home-heart"></i>Home</Link>
-          <Link to="/recipes"><i class="fad fa-hat-chef"></i>Recipes</Link>
-          <Link to="/browse"><i class="fad fa-utensils"></i>Browse</Link>
-          <Link to="/favorites"><i class="fad fa-heart"></i>Favorites</Link>
-          <Link to="/settings"><i class="fad fa-cog"></i>Settings</Link>
+          <div className="innermenu">
+            <i className="spacer"></i>
+            <NavLink exact to="/" activeClassName="activelink"><i className="fad fa-home-heart"></i>Home</NavLink>
+            <NavLink to="/recipes" activeClassName="activelink"><i className="fad fa-hat-chef"></i>Recipes</NavLink>
+            <NavLink to="/browse" activeClassName="activelink"><i className="fad fa-utensils"></i>Browse</NavLink>
+            <NavLink to="/favorites" activeClassName="activelink"><i className="fad fa-heart"></i>Favorites</NavLink>
+            <NavLink to="/settings" activeClassName="activelink"><i className="fad fa-cog"></i>Settings</NavLink>
+          </div>
+          <div className="spacer"></div>
+          <button><i className="far fa-plus"></i>Add Recipe</button>
        </div>
+
     </div>
   )
 }
