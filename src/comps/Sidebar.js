@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router,Switch,Route,NavLink,useHistory } from "react-router-dom"
+import { BrowserRouter as Router,Switch,Route,NavLink,Link,useHistory } from "react-router-dom"
  
 
 function Sidebar() {
@@ -19,7 +19,7 @@ function Sidebar() {
             <NavLink to="/settings" activeClassName="activelink"><i className="fad fa-cog"></i>Settings</NavLink>
           </div>
           <div className="spacer"></div>
-          <button><i className="far fa-plus"></i>Add Recipe</button>
+          <Link to="/addrecipe"><button><i className="far fa-plus"></i>Add Recipe</button></Link>
        </div>
 
     </div>

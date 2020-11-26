@@ -7,8 +7,9 @@ import Favorites from './Favorites'
 import Settings from './Settings'
 import OneRecipe from './OneRecipe'
 import { StoreContext } from './StoreContext'
+import AddRecipe from './AddRecipe'
 
-function Homecont() { 
+function Homecont() {  
 
   const {account} = useContext(StoreContext)
   const [daytime, setDaytime] = useState('')
@@ -50,6 +51,9 @@ function Homecont() {
         </Route>
         <Route path="/recipe">
           <OneRecipe /> 
+        </Route>
+        <Route path="/addrecipe">
+          <AddRecipe /> 
         </Route>
       </Switch>
     </div> 

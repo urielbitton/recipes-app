@@ -7,7 +7,7 @@ html, body {
 
 :root {
   --color: #fca103; 
-  --blue: #3d84e0;
+  --green: #73de00;
 } 
 
 .spacer {
@@ -90,6 +90,7 @@ textarea::placeholder {
 }
 input::placeholder {
   color: #bbb;
+  font-size: 13px;
 }
 hr {
   border: none;
@@ -167,6 +168,9 @@ hr {
 }
 .menu a:hover {
   background: rgba(255,255,255,0.3);
+}
+.menu a:active {
+  transform: scale(0.97);
 }
 .logocont {
   position: relative;
@@ -292,6 +296,9 @@ hr {
 .cardcont:hover {
   box-shadow: 0 3px 15px rgba(0,0,0,0.47);
 }
+.cardcont:active {
+  transform: scale(0.97);
+}
 .cardcont::before {
   content: '';
   position: absolute;
@@ -301,6 +308,20 @@ hr {
   height: 100%;
   background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
   z-index: 0;
+}
+.cardcont .editbtn {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  color: #ddd;
+  cursor: pointer;
+  opacity: 0;
+}
+.cardcont:hover .editbtn {
+  opacity: 1;
+}
+.editbtn:hover {
+  color: #fff;
 }
 .cardcont .cardcontent {
   position: relative;
@@ -348,12 +369,20 @@ hr {
   flex-direction: column;
   align-items: center;
 }
-.onerecipehead button {
+.onerecipehead .playbtn {
   position: absolute;
   top: 30px;
   left: 20px;
   z-index: 100;
   padding: 10px 15px;
+}
+.onerecipehead .favbtn {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  z-index: 100;
+  padding: 10px 15px;
+  background: var(--green);
 }
 .covercont {
   position: relative;
@@ -420,14 +449,26 @@ hr {
   margin-right: 5px;
   color: #bbb;
 }
-.ingredientscont h5 {
+.ingredientscont h5, .extrascont h5 {
   font-size: 20px;
   color: #555;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.ingredientscont h5 span {
+.extrascont {
+  display: flex;
+  grid-gap: 30px;
+  justify-content: space-between;
+}
+.extrascont h5 {
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+.ingredientscont h5 i, .extrascont h5 i {
+  margin-right: 10px;
+}
+.ingredientscont h5 span, .extrascont h5 span {
   font-size: 17px;
 }
 .ingredientsdiv {
@@ -441,32 +482,241 @@ hr {
 }
 .ingreditem {
   position: relative;
-  width: 150px;
-  height: 200px;
-}
-.ingreditem > div {
-  position: relative;
-  width: 100%;
-  height: 150px;
+  width: 110px;
+  height: 110px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  grid-gap: 10px;
   border-radius: 10px;
   background: #f5f5f5;
   cursor: pointer;
   transition: all 0.3s;
+  text-align: center;
 }
-.ingreditem > div:hover {
+.ingreditem:hover {
   background: #e9e9e9;
 }
 .ingreditem i {
-  color: #74d400;
+  color: #74d40070;
   font-size: 30px;
 }
 .ingreditem h6 {
-  font-size: 15px;
+  font-size: 14px;
   margin-top: 7px;
   color: #555;
+}
+.ingreditem small {
+  color: #aaa;
+}
+.recipestepscont {
+  position: relative;
+  margin-top: 30px;
+  padding: 20px;
+  background: #f5f5f5;
+  width: 80%;
+  border-radius: 20px;
+}
+.recipestepscont h5 {
+  margin-bottom: 20px;
+  color: var(--color)
+}
+.recipestepscont p {
+  margin-bottom: 8px;
+  color: #777;
+  display: flex;
+  justify-content: flex-start;
+  grid-gap: 10px;
+  font-size: 15px;
+}
+.recipestepscont p span {
+  color: var(--color);
+  font-weight: 600;
+}
+.moredetailscont {
+  position: relative;
+}
+.moredetailscont h5 {
+  margin-bottom: 20px;
+}
+.moredetailscont h6 {
+  margin: 12px 0;
+  width: 270px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #aaa;
+  font-weight: 500;
+}
+.moredetailscont h6 i {
+  margin-right: 10px;
+}
+.moredetailscont h6 span {
+  color: #333;
+  font-weight: 600;
+}
+.moredetailscont h6 span::first-letter {
+  text-transform: capitalize;
+}
+.videocont iframe {
+  width: 350px;
+  height: 200px;
+  border-radius: 20px;
+}
+
+.addrecipepage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.newrecipediv {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 20px;
+  border-radius: 20px;
+  background: #f1f1f1;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.newrecipediv:hover {
+  background: var(--color);
+}
+.newrecipediv:active {
+  transform: scale(0.97);
+}
+.newrecipediv i {
+  font-size: 30px;
+  color: #555;
+}
+.newrecipediv h4 {
+  font-size: 20px;
+  color: #555;
+}
+.createrecipecont {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background: rgba(255,255,255,0.95);
+  z-index: 990;
+}
+.closecreate {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  font-size: 30px;
+  color: #555;
+  cursor: pointer;
+  padding: 5px;
+}
+.createrecipediv {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  border-radius: 10px;
+  background: #fafafa;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  padding: 40px 30px;
+  overflow: hidden;
+}
+.createrecipediv .egglogo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: var(--color);
+  font-size: 20px;
+}
+.createrecipediv h3 {
+  font-size: 23px;
+  color: #444;
+  text-transform: capitalize;
+  margin-bottom: 50px;
+}
+.createrecipediv .stage {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  overflow-y: scroll;
+}
+.createrecipediv .innerstage {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  grid-gap: 30px 0;
+  padding-bottom: 30px;
+}
+.createrecipediv .innerstage > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  grid-gap: 30px;
+}
+.createrecipediv .stage label {
+  width: 80%;
+  text-align: center;
+}
+.createrecipediv .stage input {
+  width: 100%;
+  padding: 15px 10px;
+}
+.createrecipediv .stage select {
+  width: 100%;
+  padding: 15px 10px;
+  background: #fff; 
+  border: none;
+  border-radius: 10px;
+}
+.createrecipediv .stage label h6 {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 12px;
+}
+.recipeimgplace {
+  position: relative;
+  height: 180px;
+  max-width: 380px;
+  border-radius: 20px;
+  background:#eee;
+  transition: all 0.3s;
+  cursor: pointer;
+  background-position: center;
+  background-size: cover;
+}
+.recipeimgplace:hover {
+  background-color: #e5e5e5;
+}
+.createrecipediv hr {
+  height: 1px;
+  background: #eee;
+  width: 50%;
+  margin-top: 20px;
+}
+.stagebtndiv {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+.stagebtndiv button:last-child i {
+  margin-left: 10px;
+  margin-right: 0;
 }
 
 
@@ -484,10 +734,16 @@ hr {
 
 
 
-
-
-
-
+@media (max-width: 1700px) {
+  .appcontainer {
+    grid-template-columns: 200px auto 300px;
+  }
+}
+@media (max-width: 1500px) {
+  .extrascont {
+    flex-direction: column;
+  }
+}
 
 
 
