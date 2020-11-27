@@ -1,19 +1,96 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useRef, useEffect } from 'react'
+import { BrowserRouter as Router,Switch,Route,Link, useHistory } from "react-router-dom"
 import {Inputs} from './Inputs'
+import { StoreContext } from './StoreContext'
 
-function AddRecipe() {
+function AddRecipe(props) {
+
+  const {recipes, setRecipes, setNotifs} = useContext(StoreContext)
 
   const [opencreate, setOpencreate] = useState(false)
   const [stage, setStage] = useState(1)
-
+  const [id, setId] = useState(recipes.length)
   const [name, setName] = useState('')
-  const [img, setImg] = useState('')
-  const [ktype, setKtype] = useState('')
-  const [category, setCategory] = useState('')
+  const [img, setImg] = useState('https://images.unsplash.com/photo-1504712598893-24159a89200e')
+  const [ktype, setKtype] = useState('Parve')
+  const [category, setCategory] = useState('Vegetable')
   const [preptime, setPreptime] = useState('')
   const [servings, setServings] = useState('')
   const [calories, setCalories] = useState('')
   const [level, setLevel] = useState('')
+  const [ingredname, setIngredname] = useState('')
+  const [ingredamount, setIngredamount] = useState('')
+  const [recipename, setRecipename] = useState('')
+  const [ingredients, setIngredients] = useState([])
+  const [recipe, setRecipe] = useState([])
+  const [video, setVideo] = useState('')
+  const [notes, setNotes] = useState('')
+  const [favorite, setFavorite] = useState(false)
+  const [update, setUpdate] = useState(0)
+  const [ratings, setRatings] = useState(0) 
+  const formRef = useRef()
+  const formRef2 = useRef()
+  const history = useHistory()
+ 
+  const ingredientsrow = ingredients.map(el => {
+    return <h6><span>{el.name}</span><span>{el.amount}</span><span><i className="fad fa-edit"></i><i className="fad fa-trash"></i></span></h6>
+  })
+  const recipesrow = recipe.map(el => {
+    return <h6><span>{el.id<10?"0"+(el.id+1):(el.id+1)}</span><span>{el.name}</span><span><i className="fad fa-edit"></i><i className="fad fa-trash"></i></span></h6>
+  }) 
+
+  function createRecipe() {
+    if(name.length && ingredients.length) {
+      setRecipes(prevRec => [...prevRec,{id:id,name:name, img:img, ktype:ktype, category:category, preptime:preptime, servings:servings, calories:calories, level:level, ingredients:ingredients, recipe:recipe, ratings:ratings, video:video, notes:notes, favorite:favorite}])
+      setOpencreate(false)
+      setNotifs(prevNotif => [...prevNotif, {icon:"far fa-check-circle",text:`Recipe "${name}" has been successfully created.` }]) 
+      props.activatenotif()
+      history.push(`recipe/${id}`) 
+    } 
+    else {
+      setNotifs(prevNotif => [...prevNotif, {icon:"far fa-exclamation-circle",text:`Recipe information is missing. Please fill in required fields.` }]) 
+      props.activatenotif()
+    }
+  }
+  function addIngredient() {
+    if(ingredname.length && ingredamount.length) {
+      ingredients.push({id:ingredients.length, name:ingredname, amount:ingredamount})
+      formRef.current.reset()
+      setIngredname('')
+      setIngredamount('')
+      setUpdate(prev => prev+1)
+    }
+  }
+  function addRecipeSteps() {
+    if(recipename.length) {
+      recipe.push({id:recipe.length, name:recipename})
+      formRef2.current.reset() 
+      setRecipename('')
+      setUpdate(prev => prev+1)
+    }
+  }
+  
+  
+
+  useEffect(() => {
+    const allstars = document.querySelectorAll('.starsdiv i')
+    allstars.forEach(el => {
+      el.onclick = () => {
+        let starlevel = el.getAttribute('data-star')
+        allstars.forEach(el2 => {
+          if(starlevel < el2.getAttribute('data-star')) {
+            el2.classList.remove('fas')
+            el2.classList.add('fal')
+          } 
+          else {
+            el2.classList.remove('fal')
+            el2.classList.add('fas')
+          } 
+        })
+        setRatings(parseInt(starlevel,10))
+      }
+    })
+  },[])
 
   return (
     <div className="addrecipepage apppage">
@@ -21,15 +98,14 @@ function AddRecipe() {
         <i className="fad fa-hat-chef"></i>
         <h4>Create New Recipe</h4>
       </div>
- 
 
       <div className="createrecipecont" style={{display: opencreate?"flex":"none"}}>
-        <i className="far fa-times closecreate" onClick={() => setOpencreate(false)}></i>
+        <i className="far fa-times closecreate" onClick={() => {setOpencreate(false);setStage(1)}}></i>
         <div className="createrecipediv">
           <i className="fas fa-egg-fried egglogo"></i>
           <div className="stage" style={{display: stage===1?"block":"none"}}>
             <div className="innerstage">
-              <h3>Add a recipe title & image</h3>
+              <h3><i className="fad fa-image"></i>Add a recipe title & image</h3>
               <Inputs title="Recipe Name" placeholder="Sesame Chicken..." onchange={(val) => setName(val)} />
               <Inputs title="Recipe Image" placeholder="Provide image link" onchange={(val) => setImg(val)} />
               <hr/>
@@ -39,7 +115,7 @@ function AddRecipe() {
           </div>
           <div className="stage" style={{display: stage===2?"block":"none"}}>
             <div className="innerstage">
-              <h3>Add Recipe Information</h3>
+              <h3><i className="fad fa-info-circle"></i>Add Recipe Information</h3>
               <div>
               <label>
                 <h6>Choose Recipe Type</h6>
@@ -71,25 +147,52 @@ function AddRecipe() {
                 <Inputs title="Difficulty Level" placeholder="Hard" onchange={(val) => setLevel(val)} />
               </div>
             </div>
-          </div> 
+          </div>  
           <div className="stage" style={{display: stage===3?"block":"none"}}>
             <div className="innerstage">
-              <h3>Add Ingredients</h3>
+              <h3><i className="fad fa-utensils"></i>Add Ingredients</h3>
+              <form ref={formRef} onSubmit={(e) => e.preventDefault()}>
+                <Inputs title="Name" placeholder="E.g. Garlic" onchange={(val) => setIngredname(val)} />  
+                <Inputs title="Measurement" placeholder="E.g. 20mg" onchange={(val) => setIngredamount(val)} />
+                <button className="formbtn1" onClick={() => addIngredient()}><i className="far fa-plus"></i>Add</button>
+              </form> 
+              <div className="ingredientsrow" data-update={update}>
+                <h6 className="ingredientsrowhead">Name<span>Measurement</span><span></span></h6>
+                <div>{ingredientsrow}</div>
+              </div>
             </div>
           </div>
           <div className="stage" style={{display: stage===4?"block":"none"}}>
             <div className="innerstage">
-              <h3>Add Recipe Steps</h3>
+              <h3><i className="fad fa-list-ol"></i>Add Recipe Steps</h3>
+              <form ref={formRef2} onSubmit={(e) => e.preventDefault()}>
+                <Inputs title="Recipe Step" placeholder="E.g. Add 20g of butter..." onchange={(val) => setRecipename(val)} />  
+                <button className="formbtn2" onClick={() => addRecipeSteps()}><i className="far fa-plus"></i>Add</button>
+              </form>
+              <div className="ingredientsrow recipesrow"> 
+                <div data-update={update}>{recipesrow}</div>
+              </div>
             </div>
           </div> 
           <div className="stage" style={{display: stage===5?"block":"none"}}>
             <div className="innerstage">
-              <h3>Add Extra Details</h3>
+            <h3><i className="fad fa-heart"></i>Add Extra Details</h3>
+              <div className="starsdiv">
+                <label><h6>Recipe Rating</h6></label>
+                <i className="fal fa-star" data-star="1"></i>
+                <i className="fal fa-star" data-star="2"></i>
+                <i className="fal fa-star" data-star="3"></i>
+                <i className="fal fa-star" data-star="4"></i>
+                <i className="fal fa-star" data-star="5"></i> 
+              </div>
+              <textarea placeholder="Recipe notes..." onChange={(e) => setNotes(e.target.value)}/>
+              <button onClick={() => setFavorite(prev => !prev)}><i className="fas fa-heart"></i>{favorite?"Favorited":"Add To Favorite"}</button>
+              <Inputs title="Video link" placeholder="Provide youtube link" onchange={(val) => setVideo(val)} />
             </div>
-          </div>
+          </div> 
           <div className="stagebtndiv">
-            <button onClick={() => stage>1?setStage(prev => prev-1):""}><i class="fad fa-backward"></i>Back</button>
-            <button onClick={() => stage<5?setStage(prev => prev+1):""}>{stage===5?"Done":"Next"}<i class="fad fa-forward"></i></button>
+            <button onClick={() => stage>1?setStage(prev => prev-1):""}><i className="fad fa-backward"></i>Back</button>
+            <button onClick={() => stage<5?setStage(prev => prev+1):createRecipe()}>{stage===5?"Done":"Next"}<i className="fad fa-forward"></i></button>
           </div>
         </div>
       </div>

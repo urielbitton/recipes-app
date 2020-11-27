@@ -5,16 +5,15 @@ import { StoreContext } from './StoreContext'
 function Home() {
 
   const {recipes} = useContext(StoreContext)
-  const recommended = recipes.map(rec => {
-    if(rec.recommend)
+  const newest = recipes.slice(0,5).map(rec => {
       return <Card rec={rec}/>
   })
 
   return (
     <div className="homepage apppage">
        <div className="appsection">
-        <h4>Recommended</h4>
-          {recommended}
+        <h4>Newest Recipes</h4>
+          {newest}
        </div>
     </div>
   )

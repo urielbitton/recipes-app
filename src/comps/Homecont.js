@@ -8,11 +8,22 @@ import Settings from './Settings'
 import OneRecipe from './OneRecipe'
 import { StoreContext } from './StoreContext'
 import AddRecipe from './AddRecipe'
+import Notifs from './Notifs'
 
 function Homecont() {  
 
-  const {account} = useContext(StoreContext)
+  const {account, setNotifs} = useContext(StoreContext)
   const [daytime, setDaytime] = useState('')
+
+  function activateNotif() {
+    setTimeout(() => { 
+      document.querySelector('.notifscont .notifs').style.cssText += 'opacity:0.9;top:5px'
+      setTimeout(() => {
+        document.querySelector('.notifscont .notifs').style.cssText += 'opacity:0;top:40px'
+        setTimeout(() => { setNotifs([]) }, 200)
+      }, 3000)  
+    }, 100) 
+  } 
 
   useEffect(() => {
     let time = new Date().getHours()
@@ -53,9 +64,11 @@ function Homecont() {
           <OneRecipe /> 
         </Route>
         <Route path="/addrecipe">
-          <AddRecipe /> 
+          <AddRecipe activatenotif={activateNotif}/> 
         </Route>
       </Switch>
+
+      <Notifs />
     </div> 
   )
 }

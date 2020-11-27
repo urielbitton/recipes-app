@@ -1,4 +1,5 @@
 import React, {useContext} from 'react'
+import { BrowserRouter as Router,Switch,Route,Link } from "react-router-dom"
 import Card from './Card'
 import { StoreContext } from './StoreContext'
 
@@ -7,10 +8,9 @@ function Recipes() {
   const {recipes} = useContext(StoreContext)
 
   const allrecipes = recipes.map(rec => {
-    if(rec.recommend)
-      return <Card rec={rec}/>
-  })
-
+    return <Card rec={rec}/>
+  }) 
+ 
   return (
     <div className="recipespage apppage">
        <div className="appsection">
