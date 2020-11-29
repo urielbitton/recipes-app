@@ -1,11 +1,14 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useRef} from 'react'
+import { BrowserRouter as Router,Switch,Route,Link, useHistory } from "react-router-dom"
 import { StoreContext } from './StoreContext'
 import {Inputs} from './Inputs'
 
-function OneRecipe() {
 
-  const {temprecipe, setTemprecipe, recipes} = useContext(StoreContext)
+function OneRecipe(props) {
+
+  const {temprecipe, setTemprecipe, recipes, setNotifs} = useContext(StoreContext)
   const [update, setUpdate] = useState(0)
+  const [editupdate, setEditupdate] = useState(0)
   const [id, setId] = useState(temprecipe.id)
   const [name, setName] = useState(temprecipe.name)
   const [img, setImg] = useState(temprecipe.img)
@@ -21,11 +24,18 @@ function OneRecipe() {
   const [ratings, setRatings] = useState(temprecipe.ratings)
   const [ingredients, setIngredients] = useState(temprecipe.ingredients)
   const [recipe, setRecipe] = useState(temprecipe.recipe)
+  const [ingredname, setIngredname] = useState('')
+  const [ingredamount, setIngredamount] = useState('')
+  const [recipename, setRecipename] = useState('')
   const [openeditor, setOpeneditor] = useState(false)
+  const [displaynotif, setDisplaynotif] = useState(false)
+  const history = useHistory()
+  const formRef = useRef()
+  const formRef2 = useRef()
 
   const ingreds = temprecipe.ingredients.map(el => {
     return <div className="ingreditem">
-      <div><i className="fas fa-seedling"></i></div>
+      <div><i className="fad fa-seedling"></i></div>
       <div> 
         <h6>{el.name}</h6>
         <small>{el.amount}</small>
@@ -35,7 +45,22 @@ function OneRecipe() {
   const recipesteps = temprecipe.recipe.map(el => {
     return <p><span>-</span>{el.name}</p>
   })
-
+  //edits
+  const editingreds = temprecipe.ingredients.map(el => {
+    return <div>
+      <Inputs value={el.name} onchange={(val) => {el.name = val;setEditupdate(prev => prev+1)}} />
+      <Inputs value={el.amount} onchange={(val) => {el.amount = val;setEditupdate(prev => prev+1)}} />
+      <i class="fad fa-trash" onClick={() => deleteIngredient(el.id)}></i>
+    </div>
+  }) 
+  const editrecipesteps = temprecipe.recipe.map(el => {
+    return <div>
+      <h6>{recipe.indexOf(el)<10?0+(recipe.indexOf(el)+1):recipe.indexOf(el)+1}</h6>
+      <Inputs value={el.name} onchange={(val) => {el.name = val;setEditupdate(prev => prev+1)}} />
+      <i class="fad fa-trash" onClick={() => deleteRecipeStep(el.id)}></i>
+    </div>
+  }) 
+  console.log(temprecipe.recipe)
   function toggleFavorite() {
     temprecipe.favorite = !temprecipe.favorite
     recipes.map(el => {
@@ -51,9 +76,58 @@ function OneRecipe() {
         rec.id=id;rec.name=name; rec.img=img; rec.ktype=ktype; rec.category=category; rec.preptime=preptime; rec.servings=servings; rec.calories=calories; rec.level=level; rec.ingredients=ingredients; rec.recipe=recipe; rec.ratings=ratings; rec.video=video; rec.notes=notes; rec.favorite=favorite
       }
     })
+    setNotifs(prevNotif => [...prevNotif, {icon:"fad fa-check-circle",text:`Recipe "${name}" has been successfully saved.`}])
+    props.activatenotif(4000)   
     setTemprecipe(currentrecipe)
     document.querySelector('.apppage').scrollTo(0,0) 
     setOpeneditor(false)
+  }
+  function deleteRecipe() {
+    recipes.map(el => {
+      if(el.id === temprecipe.id) {
+        let itemindex = recipes.indexOf(el) 
+        recipes.splice(itemindex,1)
+        history.push('/recipes')
+        setTimeout(() => {
+          setTemprecipe([])
+        }, 200); 
+      }
+    })
+  }
+  function addIngredient() {
+    if(ingredname.length && ingredamount.length) {
+      ingredients.push({id:(Math.floor(Math.random()* 9999)+1), name:ingredname, amount:ingredamount})
+      formRef.current.reset()
+      setIngredname('')
+      setIngredamount('')
+      setEditupdate(prev => prev+1)
+    }
+  }
+  function addRecipeSteps() {
+    if(recipename.length) {
+      recipe.push({id:(Math.floor(Math.random()* 9999)+1), name:recipename})
+      formRef2.current.reset() 
+      setRecipename('')
+      setEditupdate(prev => prev+1)
+    }
+  }
+  function deleteIngredient(ingid) {
+    temprecipe.ingredients.map(el => {
+      if(el.id === ingid) {
+        let itemindex = temprecipe.ingredients.indexOf(el)
+        temprecipe.ingredients.splice(itemindex,1)
+        setEditupdate(prev => prev+1)
+      }
+    })
+  }
+  function deleteRecipeStep(recid) {
+    temprecipe.recipe.map(el => {
+      if(el.id === recid) {
+        let itemindex = temprecipe.recipe.indexOf(el)
+        temprecipe.recipe.splice(itemindex,1)
+        setEditupdate(prev => prev+1)
+      }
+    })
   }
   
   return (
@@ -107,8 +181,17 @@ function OneRecipe() {
       <div className="spacerl"></div>
       <div className="oneactionscont">
         <button onClick={() => setOpeneditor(true)}><i className="fad fa-edit"></i>Edit Recipe</button>
-        <button><i className="fad fa-trash"></i>Delete Recipe</button>
+        <button onClick={() => setDisplaynotif(true)}><i className="fad fa-trash"></i>Delete Recipe</button>
       </div> 
+
+      <div className="onenotifcont" style={{display: displaynotif?"flex":"none"}}>
+        <div className="notifs">
+          <i class="fad fa-exclamation-circle"></i>
+          <p>Are you sure you want to delete recipe "{name}" ?</p>
+          <button onClick={() => deleteRecipe()}>Delete</button>
+          <i className="fal fa-times"></i>
+        </div>
+      </div>
 
       <div className="recipeeditcover" style={{display: openeditor?"block":"none"}} onClick={() => setOpeneditor(false)}></div> 
       <div className="recipeeditcont" style={{right: openeditor?"0":"-650px"}}>
@@ -119,11 +202,31 @@ function OneRecipe() {
           <Inputs title="Image link" value={img} onchange={(val) => setImg(val)} />
           <Inputs title="Recipe Type" value={ktype} onchange={(val) => setKtype(val)} />
           <Inputs title="Category" value={category} onchange={(val) => setCategory(val)} />
+          <div className="editarrcont" data-update={editupdate}>
+            <h6>Ingredients</h6>
+            <div><span>Name</span><span>Amount</span></div>
+            {editingreds}
+            <form ref={formRef} onSubmit={(e) => e.preventDefault()}>
+              <Inputs placeholder="E.g. Garlic" onchange={(val) => setIngredname(val)} />  
+              <Inputs placeholder="E.g. 20mg" onchange={(val) => setIngredamount(val)} />
+              <button onClick={() => addIngredient()}><i className="far fa-plus"></i></button>
+            </form>
+          </div>
+          <div className="editarrcont editarrcont2" data-update={editupdate}>
+            <h6>Recipe Steps</h6>
+            {editrecipesteps}
+            <form ref={formRef2} onSubmit={(e) => e.preventDefault()}>
+              <Inputs placeholder="E.g. Add a cup of sugar and 2 pinches of salt..." onchange={(val) => setRecipename(val)} />  
+              <button onClick={() => addRecipeSteps()}><i className="far fa-plus"></i></button>
+            </form>
+          </div>
           <Inputs title="Prep time" value={preptime} onchange={(val) => setPreptime(val)} />
           <Inputs title="Servings" value={servings} onchange={(val) => setServings(val)} />
           <Inputs title="Calories" value={calories} onchange={(val) => setCalories(val)} />
           <Inputs title="Difficulty Level" value={level} onchange={(val) => setLevel(val)} />
           <Inputs title="Video link" value={video} onchange={(val) => setVideo(val)} />
+          <label><h6>Notes</h6><textarea value={notes} onChange={(e) => setNotes(e.target.value)}/></label>
+          <label><h6>Favorite</h6><button onClick={() => setFavorite(prev => !prev)}>{favorite?"Remove From Favorites":"Add To Favorites"}</button></label>
           <div></div>
         </div>
         <div className="editoractions">

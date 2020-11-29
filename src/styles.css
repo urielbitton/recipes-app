@@ -822,7 +822,7 @@ hr {
   transition: all 0.2s;
 }
 
-.notifscont {
+.notifscont, .onenotifcont {
   position: fixed;
   left: 0;
   right: 0;
@@ -831,10 +831,13 @@ hr {
   text-align: center;
   z-index: 999;
 }
-.notifscont .notifs {
+.onenotifcont {
+  bottom: 60px;
+}
+.notifscont .notifs, .onenotifcont .notifs {
   position: relative;
   top: 40px;
-  width: 600px;
+  max-width: 600px;
   opacity: 0;
   padding: 15px 30px;
   border-radius: 10px;
@@ -845,17 +848,21 @@ hr {
   align-items: center;
   transition: all 0.4s;
 }
-.notifscont button {
+.notifscont button, .onenotifcont .notifs button {
   background: #fff;
   color: #333;
-  margin-left: 15px;
+  margin: auto 15px;
+  padding: 5px 10px;
 }
-.notifscont .notifs i {
+.notifscont .notifs i, .onenotifcont .notifs i {
   margin-right: 20px;
   font-size: 20px;
   color: #fff;
 }
-.notifscont .notifs p {
+.notifscont .notifs i.fa-times, .onenotifcont .notifs i.fa-times {
+  cursor: pointer;
+}
+.notifscont .notifs p, .onenotifcont p {
   font-size: 14px;
   font-weight: 500;
   color: #eee;
@@ -920,17 +927,23 @@ hr {
   margin-bottom: 30px;
 }
 .recipeeditcont label {
-  width: 80%;
-  text-align: center;
+  width: 95%;
+  text-align: center; 
 }
 .recipeeditcont label h6 {
   margin-bottom: 10px;
   font-size: 13px;
   color: #444;
 }
-.recipeeditcont label input {
+.recipeeditcont label input, .innereditorcont textarea {
   width: 100%;
   padding: 15px;
+}
+.innereditorcont textarea {
+  border-radius: 10px;
+  background: #f1f1f1;
+  border: none;
+  min-height: 100px;
 }
 .editoractions {
   position: relative;
@@ -941,6 +954,92 @@ hr {
   grid-gap: 10px 20px;
   width: 100%;
 }
+.recipeeditcont .editarrcont {
+  position: relative;
+  background: #f1f1f1;
+  width: 95%;
+  border-radius: 10px;
+  padding: 20px 10px;
+}
+.recipeeditcont .editarrcont h6 {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.recipeeditcont .editarrcont span {
+  font-size: 12px;
+  color: #555;
+  width: 80%;
+  text-align: center;
+  display: block;
+  margin-bottom: 10px;
+}
+.recipeeditcont .editarrcont > div, .recipeeditcont .editarrcont form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-gap: 10px;
+}
+.recipeeditcont .editarrcont form i {
+  padding: 5px 6.5px;
+  border-radius: 100%;
+  color: #fff;
+  background: var(--color);
+  cursor: pointer;
+  transition: all 0.2s;
+  margin: 0;
+}
+.recipeeditcont .editarrcont form button {
+  padding: 0;
+}
+.recipeeditcont .editarrcont > div i {
+  color: #777;
+  cursor: pointer;
+  padding: 5px 6.5px;
+  transition: all 0.2s;
+}
+.recipeeditcont .editarrcont > div i:hover {
+  color: var(--color);
+}
+.recipeeditcont .editarrcont2 > div {
+  justify-content: space-around;
+}
+.recipeeditcont .editarrcont2 > div h6 {
+  font-size: 16px;
+  color: #777;
+}
+.recipeeditcont .editarrcont label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-gap: 10px;
+  margin-bottom: 10px;
+}
+.recipeeditcont .editarrcont label input {
+  background: #fafafa;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

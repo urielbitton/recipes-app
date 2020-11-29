@@ -9,7 +9,8 @@ function Notifs(props) {
     return <div className="notifs">
       <i class={el.icon}></i>
       <p>{el.text}</p>
-      <button style={{display: el.showbtn?"block":"none"}} onClick={() => props.notifbtnaction()}>{el.btntxt}</button>
+      <button style={{display: el.showbtn?"block":"none"}}>{el.btntxt}</button>
+      <i className="fal fa-times"></i>
     </div>
   })  
 

@@ -9,7 +9,7 @@ function AddRecipe(props) {
 
   const [opencreate, setOpencreate] = useState(false)
   const [stage, setStage] = useState(1)
-  const [id, setId] = useState(recipes.length)
+  const [id, setId] = useState((Math.floor(Math.random()* 9999)+1))
   const [name, setName] = useState('')
   const [img, setImg] = useState('https://images.unsplash.com/photo-1504712598893-24159a89200e')
   const [ktype, setKtype] = useState('Parve')
@@ -36,25 +36,25 @@ function AddRecipe(props) {
     return <h6><span>{el.name}</span><span>{el.amount}</span><span><i className="fad fa-edit"></i><i className="fad fa-trash"></i></span></h6>
   })
   const recipesrow = recipe.map(el => {
-    return <h6><span>{el.id<10?"0"+(el.id+1):(el.id+1)}</span><span>{el.name}</span><span><i className="fad fa-edit"></i><i className="fad fa-trash"></i></span></h6>
+    return <h6><span>{recipe.indexOf(el)<10?"0"+(recipe.indexOf(el)+1):(recipe.indexOf(el)+1)}</span><span>{el.name}</span><span><i className="fad fa-edit"></i><i className="fad fa-trash"></i></span></h6>
   }) 
 
   function createRecipe() {
     if(name.length && ingredients.length) {
       setRecipes(prevRec => [...prevRec,{id:id,name:name, img:img, ktype:ktype, category:category, preptime:preptime, servings:servings, calories:calories, level:level, ingredients:ingredients, recipe:recipe, ratings:ratings, video:video, notes:notes, favorite:favorite}])
       setOpencreate(false)
-      setNotifs(prevNotif => [...prevNotif, {icon:"far fa-check-circle",text:`Recipe "${name}" has been successfully created.` }]) 
-      props.activatenotif()
+      setNotifs(prevNotif => [...prevNotif, {icon:"fad fa-check-circle",text:`Recipe "${name}" has been successfully created.` }]) 
+      props.activatenotif(4000)
       history.push(`recipe/${id}`) 
     } 
     else {
-      setNotifs(prevNotif => [...prevNotif, {icon:"far fa-exclamation-circle",text:`Recipe information is missing. Please fill in required fields.` }]) 
-      props.activatenotif()
+      setNotifs(prevNotif => [...prevNotif, {icon:"fad fa-exclamation-circle",text:`Recipe information is missing. Please fill in required fields.` }]) 
+      props.activatenotif(4000)
     }
   }
   function addIngredient() {
     if(ingredname.length && ingredamount.length) {
-      ingredients.push({id:ingredients.length, name:ingredname, amount:ingredamount})
+      ingredients.push({id:(Math.floor(Math.random()* 9999)+1), name:ingredname, amount:ingredamount})
       formRef.current.reset()
       setIngredname('')
       setIngredamount('')
@@ -63,7 +63,7 @@ function AddRecipe(props) {
   }
   function addRecipeSteps() {
     if(recipename.length) {
-      recipe.push({id:recipe.length, name:recipename})
+      recipe.push({id:(Math.floor(Math.random()* 9999)+1), name:recipename})
       formRef2.current.reset() 
       setRecipename('')
       setUpdate(prev => prev+1)

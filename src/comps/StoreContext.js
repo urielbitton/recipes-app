@@ -16,14 +16,14 @@ const StoreContextProvider = (props) => {
      ratings: 5,
      calories: 107,
      notes: "This is my favorite avocado recipe with eggs. I have it for breakfast every morning!",
-     ingredients: [{name:'Avocados',amount:"2 fruits"},{name:"Bread",amount:'1 slice'},{name:'Lemon Juice',amount:'10ml'},{name:"Eggs",amount:"1 fried"},{name:"Toast",amount:'2 slices'},{name:"Garlic",amount:'1 clover'},{name:"Salt",amount:"1 pinch"},{name:"Onions",amount:"1 slice"},{name:"Tomatoes",amount:"3 cherry"}],
-     recipe: [{name:"Toast your slice of bread until golden and firm."},{name:"Remove the pit from your avocado. Use a big spoon to scoop out the flesh. Put it in a bowl and mash it up with a fork until it’s as smooth as you like it."},{name:"Mix in a pinch of salt (about ⅛ teaspoon) and add more to taste, if desired."},{name:"Spread avocado on top of your toast. Enjoy as-is or top with  a light sprinkle of flaky sea salt"}],
+     ingredients: [{id:0,name:'Avocados',amount:"2 fruits"},{id:1,name:"Bread",amount:'1 slice'},{id:2,name:'Lemon Juice',amount:'10ml'},{id:3,name:"Eggs",amount:"1 fried"},{id:4,name:"Toast",amount:'2 slices'},{id:5,name:"Garlic",amount:'1 clover'},{id:6,name:"Salt",amount:"1 pinch"},{id:7,name:"Onions",amount:"1 slice"},{id:8,name:"Tomatoes",amount:"3 cherry"}],
+     recipe: [{id:0,name:"Toast your slice of bread until golden and firm."},{id:1,name:"Remove the pit from your avocado. Use a big spoon to scoop out the flesh. Put it in a bowl and mash it up with a fork until it’s as smooth as you like it."},{id:2,name:"Mix in a pinch of salt (about ⅛ teaspoon) and add more to taste, if desired."},{id:3,name:"Spread avocado on top of your toast. Enjoy as-is or top with  a light sprinkle of flaky sea salt"}],
      favorite: true,
      recommend: true, 
      level: 'easy',
      video: "WDRujOJVykE",
    }, 
-   {
+   { 
     id: 1,
     name: "Sesame Chicken",
     img: "https://www.dinneratthezoo.com/wp-content/uploads/2015/04/sesame-chicken-1.jpg",

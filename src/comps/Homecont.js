@@ -15,15 +15,15 @@ function Homecont() {
   const {account, setNotifs} = useContext(StoreContext)
   const [daytime, setDaytime] = useState('')
 
-  function activateNotif() {
+  function activateNotif(time) {
     setTimeout(() => { 
       document.querySelector('.notifscont .notifs').style.cssText += 'opacity:0.9;top:5px'
       setTimeout(() => {
         document.querySelector('.notifscont .notifs').style.cssText += 'opacity:0;top:40px'
         setTimeout(() => { setNotifs([]) }, 200)
-      }, 3000)  
-    }, 100) 
-  } 
+      }, time)  
+    }, 100)
+  }  
 
   useEffect(() => {
     let time = new Date().getHours()
@@ -61,10 +61,10 @@ function Homecont() {
           <Settings /> 
         </Route>
         <Route path="/recipe">
-          <OneRecipe /> 
+          <OneRecipe activatenotif={activateNotif} /> 
         </Route>
         <Route path="/addrecipe">
-          <AddRecipe activatenotif={activateNotif}/> 
+          <AddRecipe activatenotif={activateNotif} /> 
         </Route>
       </Switch>
 
