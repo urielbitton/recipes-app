@@ -248,6 +248,7 @@ hr {
   border-radius: 40px;
   background: #f5f5f5;
   padding-left: 50px;
+  text-align: left;
 }
 .maininputcont i {
   position: absolute;
@@ -735,6 +736,14 @@ hr {
   flex-direction: column;
   margin-top: 20px;
 }
+.createrecipediv .innerstage .ingredientsrow input {
+  padding: 0;
+  background: none;
+  border: none;
+  text-align-last: left;
+  padding: 10px;
+  cursor: auto; 
+}
 .ingredientsrow h6 {
   font-size: 14px;
   display: flex;
@@ -744,7 +753,6 @@ hr {
   width: 100%;
   border-radius: 10px;
   margin: auto;
-  padding: 10px;
   border-bottom: 1px solid #eee;
 }
 .recipesrow h6 {
@@ -764,12 +772,13 @@ hr {
   flex-basis: 80%;
 }
 .ingredientsrow h6 span:last-child {
-  flex-basis: 50px;
+  flex-basis: 70px;
 }
 .ingredientsrow h6 span i {
   margin: auto 5px;
   cursor: pointer;
   opacity: 0.5;
+  font-size: 16px;
   transition: all 0.2s;
 }
 .ingredientsrow h6 span i:hover {
@@ -1020,12 +1029,61 @@ hr {
   background: #fafafa;
 }
 
-
-
-
-
-
-
+.catcardcont {
+  position: relative;
+  width: 250px;
+  height: 220px;
+}
+.catcardcont:hover .catcard {
+  box-shadow: 0 1px 15px rgba(0,0,0,0.17);
+}  
+.catcardcont img {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  margin: auto;
+  z-index: 100;
+  box-shadow: 0 4px 10px 1px rgba(0,0,0,0.3);
+}
+.catcard {
+  position: relative;
+  margin-top: 40px;
+  width: 100%;
+  height: 180px;
+  box-shadow: 0 1px 10px rgba(0,0,0,0.07);
+  background: #fff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden; 
+  padding: 20px;
+  grid-gap: 10px;
+  transition: all 0.3s;
+}
+.catcard .ratingsdiv {
+  text-align: center;
+}
+.catcard .ratingsdiv i {
+  color: var(--color);
+  font-size: 14px;
+  margin: auto 2px;
+}
+.catcard h6 {
+  font-size: 14px;
+  color: #555;
+}
+.catcard small i {
+  margin-right: 5px;
+}
+.catcard small {
+  color: #aaa;
+}
 
 
 

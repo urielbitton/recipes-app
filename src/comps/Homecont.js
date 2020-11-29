@@ -14,6 +14,8 @@ function Homecont() {
 
   const {account, setNotifs} = useContext(StoreContext)
   const [daytime, setDaytime] = useState('')
+  const [keyword, setKeyword] = useState('') 
+  const pattern = new RegExp('\\b' + keyword.replace(/[\W_]+/g,""), 'i')
 
   function activateNotif(time) {
     setTimeout(() => { 
@@ -41,12 +43,12 @@ function Homecont() {
         <h2><span>Good {daytime}</span>{account.fname+" "+account.lname}</h2>
         <label className="maininputcont">
           <i class="far fa-search"></i>
-          <input placeholder="Find a recipe..."/>
+          <input placeholder="Find a recipe..." onChange={(e) => setKeyword(e.target.value)}/>
         </label>
       </div>
       <Switch> 
         <Route exact path="/">
-          <Home /> 
+          <Home pattern={pattern}/> 
         </Route>
         <Route path="/recipes">
           <Recipes /> 

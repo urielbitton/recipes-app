@@ -33,10 +33,24 @@ function AddRecipe(props) {
   const history = useHistory()
  
   const ingredientsrow = ingredients.map(el => {
-    return <h6><span>{el.name}</span><span>{el.amount}</span><span><i className="fad fa-edit"></i><i className="fad fa-trash"></i></span></h6>
+    return <h6> 
+      <span><input disabled={el.edit?false:true} value={el.name} onChange={(e) => {el.name = e.target.value;setUpdate(prev => prev+1)}}/></span>
+      <span><input disabled={el.edit?false:true} value={el.amount} onChange={(e) => {el.amount = e.target.value;setUpdate(prev => prev+1)}}/></span>
+      <span>
+        <i style={{color: el.edit?"var(--color)":""}} className={el.edit?"fad fa-check-circle":"fad fa-edit"} onClick={() => {el.edit?el.edit = false:el.edit = true;setUpdate(prev => prev+1)}}></i>
+        <i className="fad fa-trash" onClick={() => deleteIngredient(el.id)}></i>
+      </span>
+      </h6> 
   })
   const recipesrow = recipe.map(el => {
-    return <h6><span>{recipe.indexOf(el)<10?"0"+(recipe.indexOf(el)+1):(recipe.indexOf(el)+1)}</span><span>{el.name}</span><span><i className="fad fa-edit"></i><i className="fad fa-trash"></i></span></h6>
+    return <h6>
+      <span>{recipe.indexOf(el)<10?"0"+(recipe.indexOf(el)+1):(recipe.indexOf(el)+1)}</span>
+      <span><input disabled={el.edit?false:true} value={el.name} onChange={(e) => {el.name = e.target.value;setUpdate(prev => prev+1)}}/></span>
+      <span>
+        <i style={{color: el.edit?"var(--color)":""}} className={el.edit?"fad fa-check-circle":"fad fa-edit"} onClick={() => {el.edit?el.edit = false:el.edit = true;setUpdate(prev => prev+1)}}></i>
+        <i className="fad fa-trash" onClick={() => deleteRecipeStep(el.id)}></i>
+      </span>
+      </h6>
   }) 
 
   function createRecipe() {
@@ -54,7 +68,7 @@ function AddRecipe(props) {
   }
   function addIngredient() {
     if(ingredname.length && ingredamount.length) {
-      ingredients.push({id:(Math.floor(Math.random()* 9999)+1), name:ingredname, amount:ingredamount})
+      ingredients.push({id:(Math.floor(Math.random()* 9999)+1), name:ingredname, amount:ingredamount, edit:false})
       formRef.current.reset()
       setIngredname('')
       setIngredamount('')
@@ -63,11 +77,29 @@ function AddRecipe(props) {
   }
   function addRecipeSteps() {
     if(recipename.length) {
-      recipe.push({id:(Math.floor(Math.random()* 9999)+1), name:recipename})
+      recipe.push({id:(Math.floor(Math.random()* 9999)+1), name:recipename, edit:false})
       formRef2.current.reset() 
       setRecipename('')
       setUpdate(prev => prev+1)
     }
+  }
+  function deleteIngredient(ingid) {
+    ingredients.map(el => {
+      if(el.id === ingid) {
+        let itemindex = ingredients.indexOf(el)
+        ingredients.splice(itemindex,1)
+        setUpdate(prev => prev+1)
+      }
+    })
+  }
+  function deleteRecipeStep(recid) {
+    recipe.map(el => {
+      if(el.id === recid) {
+        let itemindex = recipe.indexOf(el)
+        recipe.splice(itemindex,1)
+        setUpdate(prev => prev+1)
+      }
+    })
   }
   
   
@@ -90,6 +122,7 @@ function AddRecipe(props) {
         setRatings(parseInt(starlevel,10))
       }
     })
+    
   },[])
 
   return (
