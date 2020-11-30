@@ -96,8 +96,9 @@ const StoreContextProvider = (props) => {
     city: "",
     provstate: "",
     country: "",
+    birthday: null,
     settings: {
-
+ 
     }
   }) 
  

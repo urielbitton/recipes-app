@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
 import { BrowserRouter as Router,Switch,Route,Link } from "react-router-dom"
-import Recipes from './Recipes'
 import { StoreContext } from './StoreContext'
 
 function Card(props) {
 
-  const {recipes, temprecipe, setTemprecipe} = useContext(StoreContext)
+  const {temprecipe} = useContext(StoreContext)
 
   function createTempRecipe() {
     temprecipe.id = props.rec.id

@@ -77,7 +77,7 @@ input {
   border: none;
   padding: 10px;
   border-radius: 6px;
-  transition: all 0.2s;
+  transition: all 0.3s;
   background: #f1f1f1;
   text-align: center;
 }
@@ -237,14 +237,28 @@ hr {
   position: relative;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
+  padding: 30px;
+  background: rgba(252, 161, 3,0.3);
+  border-radius: 20px;
+}
+.welcomecont img {
+  width: 200px;
+  margin-top: 20px;
+}
+.welcomecont h2 i {
+  margin-right: 10px;
+  color: var(--color);
 }
 .statsboxcont {
   position: relative;
   display: flex;
+  flex-direction: column;
+  grid-gap: 20px;
+}
+.statsboxcont > div {
+  display: flex;
   justify-content: flex-end;
-  align-items: center;
   grid-gap: 20px;
 }
 .welcomecont .statsbox {
@@ -277,12 +291,40 @@ hr {
 .welcomecont .statsbox > div {
   text-align: center;
 }
+.welcomecont h2 {
+  display: flex;
+  flex-direction: column;
+}
 .welcomecont h2 span {
-  display: block;
   font-size: 14px;
   color: #bbb;
   font-weight: 500;
   margin-bottom: 5px;
+}
+.homeupdates {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  background: rgba(252, 161, 3,0.3);
+  border-radius: 10px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.homeupdates h5 {
+  color: #444;
+  font-weight: 600;
+}
+.homeupdates a {
+  font-size: 13px;
+  color: #444;
+}
+.homeupdates a:hover {
+  text-decoration: underline;
+}
+.homeupdates h6 {
+  font-weight: 500;
+  margin-bottom: 10px;
 }
 .maininputcont {
   position: relative;
@@ -477,18 +519,34 @@ hr {
 .onerecipehead .oneprepdiv {
   position: relative;
   margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  grid-gap: 20px;
+}
+.onerecipehead .oneprepdiv big {
+  font-size: 35px;
+  color: #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 70px;
 }
 .onerecipehead .oneprepdiv small {
-  font-weight: 600;
-  color: #333;
-  margin: auto 10px;
-  padding: 5px 12px;
-  border-radius: 40px;
-  background: #f1f1f1;
+  font-weight: 500;
+  color: #aaa;
+  font-size: 13px;
+  text-transform: capitalize;
 }
 .onerecipehead .oneprepdiv small i {
   margin-right: 5px;
   color: #bbb;
+}
+.onerecipehead .oneprepdiv hr {
+  position: relative;
+  width: 1px;
+  height: 50px;
+  background: #eee;
 }
 .ingredientscont h5, .extrascont h5 {
   font-size: 20px;
@@ -726,7 +784,7 @@ hr {
   background: #f4f4f4;
   border-radius: 10px;
   text-align: center;
-  transition: all 0.2s;
+  transition: all 0.3s;
   width: 100%;
   outline: none;
   text-align-last:center;
@@ -993,6 +1051,7 @@ hr {
 .recipeeditcont label input, .innereditorcont textarea {
   width: 100%;
   padding: 15px;
+  transition: all 0.3s;
 }
 .innereditorcont textarea {
   border-radius: 10px;
@@ -1019,8 +1078,10 @@ hr {
 .recipeeditcont .editarrcont h6 {
   font-size: 13px;
   color: #555;
-  margin-bottom: 20px;
   text-align: center;
+}
+.recipeeditcont .editarrcont > h6 {
+  margin-bottom: 20px;
 }
 .recipeeditcont .editarrcont span {
   font-size: 12px;

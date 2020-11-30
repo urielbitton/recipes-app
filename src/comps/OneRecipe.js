@@ -143,8 +143,11 @@ function OneRecipe(props) {
         </div>
         <p>{temprecipe.notes}</p>
         <div className="oneprepdiv">
-          <small><i className="far fa-clock"></i>{temprecipe.preptime}</small>
-          <small><i className="far fa-weight"></i>{temprecipe.calories}cal</small>
+          <big>{temprecipe.preptime.split(' ')[0]}<small>{temprecipe.preptime.split(' ')[1]}</small></big>
+          <hr/>
+          <big>{temprecipe.calories}<small>Calories</small></big>
+          <hr/>
+          <big>{temprecipe.ingredients.length}<small>Ingredients</small></big>
         </div>
       </div>
       <div className="spacerl"></div>
@@ -189,7 +192,7 @@ function OneRecipe(props) {
           <i class="fad fa-exclamation-circle"></i>
           <p>Are you sure you want to delete recipe "{name}" ?</p>
           <button onClick={() => deleteRecipe()}>Delete</button>
-          <i className="fal fa-times"></i>
+          <i className="fal fa-times" onClick={() => setDisplaynotif(false)}></i>
         </div>
       </div>
 
