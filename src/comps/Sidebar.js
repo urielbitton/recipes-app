@@ -14,7 +14,7 @@ function Sidebar() {
             <i className="spacer"></i>
             <NavLink exact to="/" activeClassName="activelink"><i className="fad fa-home-heart"></i>Home</NavLink>
             <NavLink to="/recipes" activeClassName="activelink"><i className="fad fa-hat-chef"></i>Recipes</NavLink>
-            <NavLink to="/browse" activeClassName="activelink"><i className="fad fa-utensils"></i>Browse</NavLink>
+            <NavLink to="/browse" activeClassName="activelink"><i class="fad fa-utensils-alt"></i>Browse</NavLink>
             <NavLink to="/favorites" activeClassName="activelink"><i className="fad fa-heart"></i>Favorites</NavLink>
             <NavLink to="/settings" activeClassName="activelink"><i className="fad fa-cog"></i>Settings</NavLink>
           </div>

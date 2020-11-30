@@ -8,6 +8,8 @@ html, body {
 :root {
   --color: #fca103; 
   --green: #73de00;
+  --red: #ff1f4f;
+  --purple: #7433ff;
 } 
 
 .spacer {
@@ -227,11 +229,55 @@ hr {
   align-items: center;
   margin-bottom: 40px;
 }
-.hometitles h2 {
+.hometitles h1 {
   color: #555;
-  font-size: 25px;
+  font-size: 35px;
 }
-.hometitles h2 span {
+.welcomecont {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.statsboxcont {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  grid-gap: 20px;
+}
+.welcomecont .statsbox {
+  width: 200px;
+  height: 80px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0px 6px rgba(0,0,0,0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.welcomecont .statsbox:nth-of-type(1) { background: var(--color); }
+.welcomecont .statsbox:nth-of-type(2) { background: var(--purple); }
+.welcomecont .statsbox:nth-of-type(3) { background: var(--red); }
+.welcomecont .statsbox h4 {
+  font-size: 35px;
+  color: #fff;
+  font-weight: 500;
+}
+.welcomecont .statsbox h6 {
+  font-size: 14px;
+  color: #eee;
+  font-weight: 500;
+}
+.welcomecont .statsbox i {
+  font-size: 30px;
+  color: #fff;
+}
+.welcomecont .statsbox > div {
+  text-align: center;
+}
+.welcomecont h2 span {
   display: block;
   font-size: 14px;
   color: #bbb;

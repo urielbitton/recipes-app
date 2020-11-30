@@ -13,7 +13,6 @@ import Notifs from './Notifs'
 function Homecont() {  
 
   const {account, setNotifs} = useContext(StoreContext)
-  const [daytime, setDaytime] = useState('')
   const [keyword, setKeyword] = useState('') 
   const pattern = new RegExp('\\b' + keyword.replace(/[\W_]+/g,""), 'i')
 
@@ -27,20 +26,10 @@ function Homecont() {
     }, 100)
   }  
 
-  useEffect(() => {
-    let time = new Date().getHours()
-    if(time >= 0 && time < 12) 
-      setDaytime('Morning') 
-    else if(time >= 12 && time <=17)
-      setDaytime('Afternoon')
-    else  
-      setDaytime('Evening')
-  },[])
-
-  return (
+  return ( 
     <div className="homecont">
       <div className="hometitles">
-        <h2><span>Good {daytime}</span>{account.fname+" "+account.lname}</h2>
+        <h1>Home</h1>
         <label className="maininputcont">
           <i class="far fa-search"></i>
           <input placeholder="Find a recipe..." onChange={(e) => setKeyword(e.target.value)}/>
