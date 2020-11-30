@@ -26,6 +26,9 @@ function Home(props) {
     if((rec.category === "rice") && (props.pattern.test(rec.name.toLowerCase()) || props.pattern === ''))
       return <CatCard rec={rec}/>
   })
+  const ingredsnum = recipes.map(el => {
+    return el.ingredients
+  })
 
   useEffect(() => {
     let time = new Date().getHours()
@@ -52,16 +55,20 @@ function Home(props) {
         <h2>
           <span>{bday?"Happy Birthday!":`Good ${daytime}`}</span>
           <div><i style={{display: bday?"inline":"none"}} class="far fa-birthday-cake"></i>{account.fname+" "+account.lname}</div>
-          <img src="https://i.imgur.com/94gOe6w.png" alt=""/>
+          {
+            daytime==="Morning"?<img src="https://i.imgur.com/94gOe6w.png" alt=""/>:
+            daytime==="Afternoon"?<img src="https://i.imgur.com/tpCAEAC.png" alt=""/>:
+            <img src="https://i.imgur.com/BStgGnV.png" alt=""/>
+          }
         </h2>
         <div className="statsboxcont">
           <div>
             <div className="statsbox">
-              <h4>15<h6>Recipes</h6></h4>
+              <h4>{recipes.length}<h6>Recipes</h6></h4>
               <i className="fal fa-hat-chef"></i>
             </div>
             <div className="statsbox">
-              <h4>200<h6>Ingredients</h6></h4>
+              <h4>{ingredsnum.flat().length}<h6>Ingredients</h6></h4>
               <i className="fal fa-utensils"></i>
             </div>
             <div className="statsbox">
@@ -88,6 +95,27 @@ function Home(props) {
           {chickenrow}
         <h4>Rice Based</h4>
           {ricerow}
+        <h4>Categories</h4>
+        <div className="categcont">
+          <div className="categdiv">
+            <img src="https://i.imgur.com/9w3Ejct.jpg" alt=""/>
+            <h5>Dairy</h5>
+            <small>Discover delicious dairy recipes</small>
+            <button>View All</button>
+          </div>
+          <div className="categdiv">
+            <img src="https://i.imgur.com/IM0SPOa.jpg" alt=""/>
+            <h5>Meat</h5>
+            <small>View various meath recipes</small>
+            <button>View All</button>
+          </div>
+          <div className="categdiv">
+            <img src="https://i.imgur.com/xFhdjtQ.jpg" alt=""/>
+            <h5>Parve</h5>
+            <small>Find your parve recipes in one place</small>
+            <button>View All</button>
+          </div>
+        </div>
        </div>
        
     </div>

@@ -29,6 +29,7 @@ function OneRecipe(props) {
   const [recipename, setRecipename] = useState('')
   const [openeditor, setOpeneditor] = useState(false)
   const [displaynotif, setDisplaynotif] = useState(false)
+  const [listview, setListview] = useState(false)
   const history = useHistory()
   const formRef = useRef()
   const formRef2 = useRef()
@@ -152,8 +153,8 @@ function OneRecipe(props) {
       </div>
       <div className="spacerl"></div>
       <div className="ingredientscont">
-        <h5><div><i className="fad fa-utensils-alt"></i>Ingredients</div> <span>{temprecipe.ingredients.length} items</span></h5>
-        <div className="ingredientsdiv">
+        <h5><div><i className="fad fa-utensils-alt"></i>Ingredients</div><span><i class={listview?"fas fa-th listview":"fad fa-list listview"} onClick={() => setListview(prev => !prev)}></i></span></h5>
+        <div className={listview?"ingredientsdiv listviewcont":"ingredientsdiv"}>
           {ingreds} 
         </div>
         <div className="spacer"></div>
