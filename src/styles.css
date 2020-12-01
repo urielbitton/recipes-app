@@ -1275,9 +1275,47 @@ hr {
   color: #333;
 }
 
-
-
-
+.settingscont {
+  position: relative;
+  width: 98%;
+  height: 100%; 
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0px 10px rgba(0,0,0,0.1);
+  margin: 20px auto;
+}
+.headernav {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid #eee;
+  padding: 20px;
+  grid-gap: 30px;
+}
+.headernav a {
+  font-size: 14px;
+  color: #777;
+  font-weight: 600;
+  padding: 20px 0;
+}
+.headernav .activenavlink {
+  color: var(--color)
+}
+.settingscontent {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 30px 50px;
+  padding: 20px 40px;
+}
+.settingscontent h5 {
+  margin: 10px 0;
+  margin-bottom: 40px;
+  color: #777;
+}
 
 
 
