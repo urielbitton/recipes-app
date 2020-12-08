@@ -51,7 +51,7 @@ function Home(props) {
   return (
     <div className="homepage apppage">
        <div className="appsection">
-       <div className="welcomecont">
+       <div className="welcomecont"> 
         <h2>
           <span>{bday?"Happy Birthday!":`Good ${daytime}`}</span>
           <div><i style={{display: bday?"inline":"none"}} class="far fa-birthday-cake"></i>{account.fname+" "+account.lname}</div>

@@ -90,8 +90,8 @@ const StoreContextProvider = (props) => {
   const [account, setAccount] = useState({
     id: null,
     profimg: "",
-    fname: "Cindy",
-    lname: "Bitton",
+    fname: "",
+    lname: "",
     email: "",
     city: "",
     provstate: "",

@@ -9,8 +9,9 @@ import OneRecipe from './OneRecipe'
 import { StoreContext } from './StoreContext'
 import AddRecipe from './AddRecipe'
 import Notifs from './Notifs'
+import firebase from 'firebase'
 
-function Homecont() {  
+function Homecont(props) {  
 
   const {account, setNotifs} = useContext(StoreContext)
   const [keyword, setKeyword] = useState('') 
@@ -26,6 +27,7 @@ function Homecont() {
     }, 100)
   }  
 
+
   return ( 
     <div className="homecont">
       <div className="hometitles">
@@ -37,7 +39,7 @@ function Homecont() {
       </div>
       <Switch> 
         <Route exact path="/">
-          <Home pattern={pattern}/> 
+          <Home pattern={pattern} /> 
         </Route>
         <Route path="/recipes">
           <Recipes /> 

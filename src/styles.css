@@ -1317,7 +1317,82 @@ hr {
   color: #777;
 }
 
-
+/*Login CSS */
+.loginpage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fafafa;
+}
+.logincont {
+  position: relative;
+  width: 550px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(104, 43, 255,0.1);
+  border-radius: 10px;
+  border: 1px solid rgba(104, 43, 255,0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  grid-gap: 10px;
+  padding: 50px 30px;
+}
+.mainlogicon {
+  font-size: 25px;
+  color: var(--color);
+}
+.logincont {
+  text-align: center;
+}
+.logincont h3 {
+  color: #555;
+  font-size: 24px;
+}
+.logincont form label {
+  position: relative;
+  margin: 8px auto;
+}
+.logincont form label input {
+  width: 300px;
+} 
+.logincont form {
+  position: relative;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.logincont button {
+  width: 300px;
+  margin-top: 10px;
+}
+.logincont a {
+  color: var(--color);
+}
+.logincont a:hover {
+  text-decoration: underline;
+}
+.logincont small {
+  margin-top: 20px;
+}
+.logincont small span {
+  cursor: pointer;
+  color: var(--color);
+}
+.logincont small span:hover {
+  text-decoration: underline;
+}
+.errormsg {
+  font-size: 11px;
+  padding: 5px 10px;
+  color: rgb(255, 19, 70);
+  width: 300px;
+} 
 
 
 
