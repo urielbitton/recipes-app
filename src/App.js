@@ -74,8 +74,6 @@ export default function App() {
         setUser('')
       }
     }) 
-    setFname(firebase.auth().currentUser.displayName.split(' ')[0])
-    setLname(firebase.auth().currentUser.displayName.split(' ')[1])
   }
   const handleLogout = () => {
     firebase.auth().signOut()

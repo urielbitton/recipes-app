@@ -7,3 +7,4 @@ Ideas:
 3. Process video link to cut only relevant part
 4. Polish categories and types on homepage
 
+

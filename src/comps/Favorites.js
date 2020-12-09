@@ -1,14 +1,29 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Card from './Card'
 import { StoreContext } from './StoreContext'
+import firebase from 'firebase'
 
 function Favorites() {
 
   const {recipes} = useContext(StoreContext)
-  const favoritesrow = recipes.map(rec => {
+  const [recipeslist, setRecipeslist] = useState([])
+
+  const favoritesrow = recipeslist && recipeslist.map(rec => {
     if(rec.favorite)
       return <Card rec={rec}/>
   })
+
+  useEffect(() => {
+    const recipeRef = firebase.database().ref('Recipes')
+    recipeRef.on('value', (snapshot) => {
+      const recipes = snapshot.val() 
+      const recipeslist = []
+      for (let id in recipes) {
+        recipeslist.push({id, ...recipes[id] })
+      } 
+      setRecipeslist(recipeslist)
+    })
+  },[]) 
 
   return (
     <div className="favoritespage apppage">

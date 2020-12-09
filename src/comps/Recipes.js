@@ -1,15 +1,30 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { BrowserRouter as Router,Switch,Route,Link } from "react-router-dom"
 import Card from './Card'
 import { StoreContext } from './StoreContext'
+import firebase from 'firebase'
 
 function Recipes() {
 
   const {recipes} = useContext(StoreContext)
 
-  const allrecipes = recipes.map(rec => {
+  const [recipeslist, setRecipeslist] = useState([])
+
+  const allrecipes = recipeslist && recipeslist.map(rec => {
     return <Card rec={rec}/>
   }) 
+
+  useEffect(() => {
+    const recipeRef = firebase.database().ref('Recipes')
+    recipeRef.on('value', (snapshot) => {
+      const recipes = snapshot.val() 
+      const recipeslist = []
+      for (let id in recipes) {
+        recipeslist.push({id, ...recipes[id] })
+      }
+      setRecipeslist(recipeslist)
+    })
+  },[]) 
  
   return (
     <div className="recipespage apppage">

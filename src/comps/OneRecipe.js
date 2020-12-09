@@ -1,7 +1,8 @@
-import React, {useContext, useState, useRef} from 'react'
+import React, {useContext, useState, useRef, useEffect} from 'react'
 import { BrowserRouter as Router,Switch,Route,Link, useHistory } from "react-router-dom"
 import { StoreContext } from './StoreContext'
 import {Inputs} from './Inputs'
+import firebase from 'firebase'
 
 
 function OneRecipe(props) {
@@ -30,6 +31,7 @@ function OneRecipe(props) {
   const [openeditor, setOpeneditor] = useState(false)
   const [displaynotif, setDisplaynotif] = useState(false)
   const [listview, setListview] = useState(false)
+  const [currrecipe, setCurrRecipe] = useState([])
   const history = useHistory()
   const formRef = useRef()
   const formRef2 = useRef()
@@ -61,7 +63,7 @@ function OneRecipe(props) {
       <i class="fad fa-trash" onClick={() => deleteRecipeStep(el.id)}></i>
     </div>
   }) 
-  console.log(temprecipe.recipe)
+
   function toggleFavorite() {
     temprecipe.favorite = !temprecipe.favorite
     recipes.map(el => {
@@ -70,13 +72,26 @@ function OneRecipe(props) {
     })
     setUpdate(prev => prev+1)
   }  
+  console.log(id)
   function saveRecipe() {
+    const cardRef = firebase.database().ref('Recipes').child(id)
+    cardRef.update({
+      name,
+      img,
+      ktype,
+      category,
+      preptime,
+      servings,
+      calories,
+      level,
+      ingredients,
+      recipe,
+      video, 
+      notes,
+      favorite,
+      ratings,  
+    }) 
     const currentrecipe = {id:id,name:name, img:img, ktype:ktype, category:category, preptime:preptime, servings:servings, calories:calories, level:level, ingredients:ingredients, recipe:recipe, ratings:ratings, video:video, notes:notes, favorite:favorite}
-    recipes.map(rec => {
-      if(rec.id === id) { 
-        rec.id=id;rec.name=name; rec.img=img; rec.ktype=ktype; rec.category=category; rec.preptime=preptime; rec.servings=servings; rec.calories=calories; rec.level=level; rec.ingredients=ingredients; rec.recipe=recipe; rec.ratings=ratings; rec.video=video; rec.notes=notes; rec.favorite=favorite
-      }
-    })
     setNotifs(prevNotif => [...prevNotif, {icon:"fad fa-check-circle",text:`Recipe "${name}" has been successfully saved.`}])
     props.activatenotif(4000)   
     setTemprecipe(currentrecipe)
@@ -84,16 +99,9 @@ function OneRecipe(props) {
     setOpeneditor(false)
   }
   function deleteRecipe() {
-    recipes.map(el => {
-      if(el.id === temprecipe.id) {
-        let itemindex = recipes.indexOf(el) 
-        recipes.splice(itemindex,1)
-        history.push('/recipes')
-        setTimeout(() => {
-          setTemprecipe([])
-        }, 200); 
-      }
-    })
+    const cardRef = firebase.database().ref('Recipes').child(id)
+    cardRef.remove() 
+    history.push('/recipes')
   }
   function addIngredient() {
     if(ingredname.length && ingredamount.length) {
@@ -103,6 +111,8 @@ function OneRecipe(props) {
       setIngredamount('')
       setEditupdate(prev => prev+1)
     }
+    const cardRef = firebase.database().ref('Recipes').child(id)
+    cardRef.update({ingredients})
   }
   function addRecipeSteps() {
     if(recipename.length) {
@@ -111,6 +121,8 @@ function OneRecipe(props) {
       setRecipename('')
       setEditupdate(prev => prev+1)
     }
+    const cardRef = firebase.database().ref('Recipes').child(id)
+    cardRef.update({recipe})
   }
   function deleteIngredient(ingid) {
     temprecipe.ingredients.map(el => {
@@ -120,6 +132,8 @@ function OneRecipe(props) {
         setEditupdate(prev => prev+1)
       }
     })
+    const cardRef = firebase.database().ref('Recipes').child(id)
+    cardRef.update({ingredients})
   }
   function deleteRecipeStep(recid) {
     temprecipe.recipe.map(el => {
@@ -129,6 +143,8 @@ function OneRecipe(props) {
         setEditupdate(prev => prev+1)
       }
     })
+    const cardRef = firebase.database().ref('Recipes').child(id)
+    cardRef.update({recipe})
   }
   
   return (

@@ -2,6 +2,7 @@ import React, { useState, useContext, useRef, useEffect } from 'react'
 import { BrowserRouter as Router,Switch,Route,Link, useHistory } from "react-router-dom"
 import {Inputs} from './Inputs'
 import { StoreContext } from './StoreContext'
+import firebase from 'firebase'
 
 function AddRecipe(props) {
 
@@ -31,8 +32,9 @@ function AddRecipe(props) {
   const formRef = useRef()
   const formRef2 = useRef()
   const history = useHistory()
+  var userid = firebase.auth().currentUser
  
-  const ingredientsrow = ingredients.map(el => {
+  const ingredientsrow = ingredients && ingredients.map(el => {
     return <h6> 
       <span><input disabled={el.edit?false:true} value={el.name} onChange={(e) => {el.name = e.target.value;setUpdate(prev => prev+1)}}/></span>
       <span><input disabled={el.edit?false:true} value={el.amount} onChange={(e) => {el.amount = e.target.value;setUpdate(prev => prev+1)}}/></span>
@@ -55,7 +57,24 @@ function AddRecipe(props) {
 
   function createRecipe() {
     if(name.length && ingredients.length) {
-      setRecipes(prevRec => [...prevRec,{id:id,name:name, img:img, ktype:ktype, category:category, preptime:preptime, servings:servings, calories:calories, level:level, ingredients:ingredients, recipe:recipe, ratings:ratings, video:video, notes:notes, favorite:favorite}])
+      const recipeRef = firebase.database().ref('Recipes')
+      const recipes = {
+        name,
+        img,
+        ktype,
+        category,
+        preptime,
+        servings,
+        calories,
+        level,
+        ingredients,
+        recipe,
+        video, 
+        notes,
+        favorite,
+        ratings,
+      }  
+      recipeRef.push(recipes)
       setOpencreate(false)
       setNotifs(prevNotif => [...prevNotif, {icon:"fad fa-check-circle",text:`Recipe "${name}" has been successfully created.` }]) 
       props.activatenotif(4000)
@@ -102,8 +121,6 @@ function AddRecipe(props) {
     })
   }
   
-  
-
   useEffect(() => {
     const allstars = document.querySelectorAll('.starsdiv i')
     allstars.forEach(el => {

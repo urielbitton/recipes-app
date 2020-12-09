@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Card from './Card'
 import CatCard from './CatCard'
 import { StoreContext } from './StoreContext'
+import firebase from 'firebase'
 
 function Home(props) {
 
@@ -9,27 +10,39 @@ function Home(props) {
 
   const [daytime, setDaytime] = useState('')
   const [bday, setBday] = useState(false)
+  const [recipeslist, setRecipeslist] = useState([])
 
-  const newest = recipes.slice(0,5).map(rec => {
+  const newest = recipeslist && recipeslist.slice(0,5).map(rec => {
       if(props.pattern.test(rec.name.toLowerCase()) || props.pattern === '')
         return <Card rec={rec}/>
   })
-  const vegrow = recipes.slice(0,5).map(rec => {
-    if((rec.category === "vegetable") && (props.pattern.test(rec.name.toLowerCase()) || props.pattern === ''))
+  const vegrow = recipeslist && recipeslist.slice(0,5).map(rec => {
+    if((rec.category === "Vegetable") && (props.pattern.test(rec.name.toLowerCase()) || props.pattern === ''))
       return <CatCard rec={rec}/>
   })
-  const chickenrow = recipes.slice(0,5).map(rec => {
-    if((rec.category === "chicken") && (props.pattern.test(rec.name.toLowerCase()) || props.pattern === ''))
+  const chickenrow = recipeslist && recipeslist.slice(0,5).map(rec => {
+    if((rec.category === "Chicken") && (props.pattern.test(rec.name.toLowerCase()) || props.pattern === ''))
       return <CatCard rec={rec}/>
   })
-  const ricerow = recipes.slice(0,5).map(rec => {
-    if((rec.category === "rice") && (props.pattern.test(rec.name.toLowerCase()) || props.pattern === ''))
+  const ricerow = recipeslist && recipeslist.slice(0,5).map(rec => {
+    if((rec.category === "Rice") && (props.pattern.test(rec.name.toLowerCase()) || props.pattern === ''))
       return <CatCard rec={rec}/>
   })
-  const ingredsnum = recipes.map(el => {
+  const ingredsnum = recipeslist && recipeslist.map(el => {
     return el.ingredients
   })
 
+  useEffect(() => {
+    const recipeRef = firebase.database().ref('Recipes')
+    recipeRef.on('value', (snapshot) => {
+      const recipes = snapshot.val() 
+      const recipeslist = []
+      for (let id in recipes) {
+        recipeslist.push({id, ...recipes[id] })
+      } 
+      setRecipeslist(recipeslist)
+    })
+  },[]) 
   useEffect(() => {
     let time = new Date().getHours()
     if(time >= 0 && time < 12) 
