@@ -31,10 +31,11 @@ function OneRecipe(props) {
   const [openeditor, setOpeneditor] = useState(false)
   const [displaynotif, setDisplaynotif] = useState(false)
   const [listview, setListview] = useState(false)
-  const [currrecipe, setCurrRecipe] = useState([])
+  const [uid, setUid] = useState(temprecipe.uid)
   const history = useHistory()
   const formRef = useRef()
   const formRef2 = useRef()
+  let userid = firebase.auth().currentUser.uid
 
   const ingreds = temprecipe.ingredients.map(el => {
     return <div className="ingreditem">
@@ -200,8 +201,12 @@ function OneRecipe(props) {
       </div>
       <div className="spacerl"></div>
       <div className="oneactionscont">
-        <button onClick={() => setOpeneditor(true)}><i className="fad fa-edit"></i>Edit Recipe</button>
-        <button onClick={() => setDisplaynotif(true)}><i className="fad fa-trash"></i>Delete Recipe</button>
+        {
+          userid===uid?<>
+            <button onClick={() => setOpeneditor(true)}><i className="fad fa-edit"></i>Edit Recipe</button>
+            <button onClick={() => setDisplaynotif(true)}><i className="fad fa-trash"></i>Delete Recipe</button>
+          </>:""
+        }
       </div> 
 
       <div className="onenotifcont" style={{display: displaynotif?"flex":"none"}}>

@@ -12,7 +12,9 @@ function Login(props) {
         <h3>{hasAccount?"Login":"Register"}</h3>
         <div className="spacers"></div>
         <form onSubmit={(e) => e.preventDefault()}> 
-          <label><input placeholder="Full Name" autoFocus required value={name} onChange={(e) => setName(e.target.value)} /></label>
+          {
+            !hasAccount?<label><input placeholder="Full Name" autoFocus required value={name} onChange={(e) => setName(e.target.value)} /></label>:""
+          }
           <label><input placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)} /></label>
           <p className="errormsg">{emailError}</p>
           <label><input placeholder="Password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)}/></label>

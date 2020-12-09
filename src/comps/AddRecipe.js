@@ -32,7 +32,7 @@ function AddRecipe(props) {
   const formRef = useRef()
   const formRef2 = useRef()
   const history = useHistory()
-  var userid = firebase.auth().currentUser
+  let userid = firebase.auth().currentUser.uid
  
   const ingredientsrow = ingredients && ingredients.map(el => {
     return <h6> 
@@ -73,6 +73,7 @@ function AddRecipe(props) {
         notes,
         favorite,
         ratings,
+        uid: userid,
       }  
       recipeRef.push(recipes)
       setOpencreate(false)

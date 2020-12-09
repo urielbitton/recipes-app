@@ -9,6 +9,7 @@ function Recipes() {
   const {recipes} = useContext(StoreContext)
 
   const [recipeslist, setRecipeslist] = useState([])
+  let userid = firebase.auth().currentUser.uid
 
   const allrecipes = recipeslist && recipeslist.map(rec => {
     return <Card rec={rec}/>
@@ -16,12 +17,13 @@ function Recipes() {
 
   useEffect(() => {
     const recipeRef = firebase.database().ref('Recipes')
-    recipeRef.on('value', (snapshot) => {
+    let query = recipeRef.orderByChild('uid').equalTo(userid); 
+    query.on('value', (snapshot) => {
       const recipes = snapshot.val() 
       const recipeslist = []
       for (let id in recipes) {
         recipeslist.push({id, ...recipes[id] })
-      }
+      } 
       setRecipeslist(recipeslist)
     })
   },[]) 

@@ -11,6 +11,8 @@ function Home(props) {
   const [daytime, setDaytime] = useState('')
   const [bday, setBday] = useState(false)
   const [recipeslist, setRecipeslist] = useState([])
+  let userid = firebase.auth().currentUser.uid
+  let username = firebase.auth().currentUser.displayName
 
   const newest = recipeslist && recipeslist.slice(0,5).map(rec => {
       if(props.pattern.test(rec.name.toLowerCase()) || props.pattern === '')
@@ -34,7 +36,8 @@ function Home(props) {
 
   useEffect(() => {
     const recipeRef = firebase.database().ref('Recipes')
-    recipeRef.on('value', (snapshot) => {
+    let query = recipeRef.orderByChild('uid').equalTo(userid); 
+    query.on('value', (snapshot) => {
       const recipes = snapshot.val() 
       const recipeslist = []
       for (let id in recipes) {
@@ -67,7 +70,7 @@ function Home(props) {
        <div className="welcomecont"> 
         <h2>
           <span>{bday?"Happy Birthday!":`Good ${daytime}`}</span>
-          <div><i style={{display: bday?"inline":"none"}} class="far fa-birthday-cake"></i>{account.fname+" "+account.lname}</div>
+          <div><i style={{display: bday?"inline":"none"}} class="far fa-birthday-cake"></i>{username}</div>
           {
             daytime==="Morning"?<img src="https://i.imgur.com/94gOe6w.png" alt=""/>:
             daytime==="Afternoon"?<img src="https://i.imgur.com/tpCAEAC.png" alt=""/>:

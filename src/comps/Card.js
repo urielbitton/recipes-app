@@ -22,6 +22,7 @@ function Card(props) {
     temprecipe.category = props.rec.category
     temprecipe.level = props.rec.level
     temprecipe.video = props.rec.video
+    temprecipe.uid = props.rec.uid
   }
 
   return (

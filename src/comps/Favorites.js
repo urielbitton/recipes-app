@@ -7,6 +7,7 @@ function Favorites() {
 
   const {recipes} = useContext(StoreContext)
   const [recipeslist, setRecipeslist] = useState([])
+  let userid = firebase.auth().currentUser.uid
 
   const favoritesrow = recipeslist && recipeslist.map(rec => {
     if(rec.favorite)
@@ -15,7 +16,8 @@ function Favorites() {
 
   useEffect(() => {
     const recipeRef = firebase.database().ref('Recipes')
-    recipeRef.on('value', (snapshot) => {
+    let query = recipeRef.orderByChild('uid').equalTo(userid); 
+    query.on('value', (snapshot) => {
       const recipes = snapshot.val() 
       const recipeslist = []
       for (let id in recipes) {
