@@ -14,6 +14,8 @@ import firebase from 'firebase'
 function Homecont(props) {  
 
   const {account, setNotifs} = useContext(StoreContext)
+
+  const [darkmode, setDarkMode] = useState(false)
   const [keyword, setKeyword] = useState('') 
   const pattern = new RegExp('\\b' + keyword.replace(/[\W_]+/g,""), 'i')
 
@@ -29,7 +31,7 @@ function Homecont(props) {
 
 
   return ( 
-    <div className="homecont">
+    <div className={darkmode?"homecont darkapp":"homecont"}>
       <div className="hometitles">
         <h1>Home</h1>
         <label className="maininputcont">

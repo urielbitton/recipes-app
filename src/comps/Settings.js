@@ -9,16 +9,16 @@ function Settings() {
     <div className="settingspage apppage">
        <div className="settingscont">
          <div className="headernav">
-           <NavLink exact to="/settings/" activeClassName="activenavlink">General</NavLink>
-           <NavLink activeClassName="activenavlink" to="/settings/account">Account</NavLink>
+           <NavLink activeClassName="activenavlink" exact to="/settings/">Account</NavLink>
+           <NavLink activeClassName="activenavlink" to="/settings/general">General</NavLink>
            <NavLink activeClassName="activenavlink" to="/settings/theme">Theme</NavLink>
          </div>
          <div className="settingscontent">
-           <Route exact path="/settings">
-            <SettingsGeneral />
-           </Route>
-           <Route path="/settings/account">
+           <Route exact path="/settings/">
             <SettingsAccount />
+           </Route>
+           <Route path="/settings/general">
+            <SettingsGeneral />
            </Route>
            <Route path="/settings/theme">
             <SettingsTheme />

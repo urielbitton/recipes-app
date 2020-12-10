@@ -10,6 +10,7 @@ html, body {
   --green: #73de00;
   --red: #ff1f4f;
   --purple: #7433ff;
+  --dark: #0b1217
 } 
 
 .spacer {
@@ -134,6 +135,9 @@ hr {
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+}
+.navbar .toptools i {
+  margin-right: 10px;
 }
 .logocont {
   position: relative;
@@ -1278,7 +1282,7 @@ hr {
 .settingscont {
   position: relative;
   width: 98%;
-  height: 100%; 
+  padding-bottom: 40px; 
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 0px 10px rgba(0,0,0,0.1);
@@ -1393,6 +1397,115 @@ hr {
   color: rgb(255, 19, 70);
   width: 300px;
 } 
+
+.settingspage h5 {
+  font-size: 15px;
+}
+.settingspage label h6 {
+  margin-bottom: 10px;
+  color: #444;
+  font-size: 12px;
+}
+.settingsgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 40px;
+  margin-bottom: 40px;
+}
+.settingsgrid input {
+  width: 100%;
+  padding: 15px 10px;
+}
+.settingsheadrow {
+  grid-column: 1/-1;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  grid-gap: 30px 70px;
+}
+.settingprofpic {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  box-shadow: 0 7px 15px rgba(0,0,0,0.2);
+  background-position: center;
+  background-size: cover;
+}
+.settingsinfotxt {
+  grid-column: 2/-1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.settingsinfotxt h4 {
+  color: #333;
+  font-size: 27px;
+}
+.settingsinfotxt span {
+  color: #999;
+  font-size: 14px;
+  display: block;
+  margin-top: 10px;
+}
+.settingsinfotxt span i {
+  margin-right: 7px;
+}
+button.savesettingbtn { 
+  margin-top: 30px;
+  min-width: 100px;
+  padding: 12px 10px;
+}
+
+/* iOS Style Button */
+.form-switch{display:inline-block;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.form-switch i{position:relative;display:inline-block;margin-right:.5rem;width:46px;height:26px;background-color:#e6e6e6;border-radius:23px;vertical-align:text-bottom;transition:all .3s linear}
+.form-switch i::before{content:"";position:absolute;left:0;width:42px;height:22px;background-color:#fff;border-radius:11px;transform:translate3d(2px,2px,0) scale3d(1,1,1);transition:all .25s linear}
+.form-switch i::after{content:"";position:absolute;left:0;width:22px;height:22px;background-color:#fff;border-radius:11px;box-shadow:0 2px 2px rgba(0,0,0,.24);transform:translate3d(2px,2px,0);transition:all .2s ease-in-out}
+.form-switch:active i::after{width:28px;transform:translate3d(2px,2px,0)}
+.form-switch:active input:checked+i::after{transform:translate3d(16px,2px,0)}
+.form-switch input{display:none}
+.form-switch input:checked+i{background:var(--color)}
+.form-switch input:checked+i::before{transform:translate3d(18px,2px,0) scale3d(0,0,0)}
+.form-switch input:checked+i::after{transform:translate3d(22px,2px,0)} 
+
+.switchdiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #b2bbca20;
+  padding: 10px;
+  border-radius: 5px; 
+}
+.switchdiv h6 { 
+  font-size: 14px;
+  color: #777;
+  text-transform: capitalize;
+}
+.settingspage .settingsgrid {
+  grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
+}
+.settingspage select {
+  border: none;
+  background: #f5f5f5;
+  padding-left: 10px; 
+  border-radius: 6px;
+}
+
+.darkapp {
+  background: var(--dark);
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -190,6 +190,7 @@ function OneRecipe(props) {
           <h6><div><i className="fad fa-clock"></i>Preparation Time:</div> <span>{temprecipe.preptime}</span></h6>
           <h6><div><i className="far fa-weight"></i>Calories:</div> <span>{temprecipe.calories}</span></h6>
           <h6><div><i className="fad fa-level-up-alt"></i>Difficulty:</div> <span>{temprecipe.level}</span></h6>
+          <h6><div><i className="fad fa-user"></i>Creator:</div> <span>{temprecipe.creator}</span></h6>
         </div>
         <div className="nutritioncont">
           <h5><i className="fad fa-apple-alt"></i>Nutrition Facts</h5>

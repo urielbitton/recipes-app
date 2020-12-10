@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { BrowserRouter as Router,Switch,Route,Link } from "react-router-dom"
 import { StoreContext } from './StoreContext'
+import firebase from 'firebase'
 
 function Card(props) {
 
@@ -23,6 +24,7 @@ function Card(props) {
     temprecipe.level = props.rec.level
     temprecipe.video = props.rec.video
     temprecipe.uid = props.rec.uid
+    temprecipe.creator = props.rec.creator
   }
 
   return (
@@ -34,6 +36,7 @@ function Card(props) {
       <div className="cardcontent">
         <h5>{props.rec.name}</h5>
         <h6>{props.rec.ktype}</h6>
+        <h6 style={{color: "#aaa",marginTop:"5px"}}>By: {props.rec.creator}</h6>
         <div className="ratingsdiv">
           {Array(props.rec.ratings).fill().map((_) => <i className="fas fa-star"></i>)}
         </div>

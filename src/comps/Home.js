@@ -6,13 +6,14 @@ import firebase from 'firebase'
 
 function Home(props) {
 
-  const {recipes, account} = useContext(StoreContext)
+  const {account} = useContext(StoreContext)
 
   const [daytime, setDaytime] = useState('')
   const [bday, setBday] = useState(false)
   const [recipeslist, setRecipeslist] = useState([])
   let userid = firebase.auth().currentUser.uid
   let username = firebase.auth().currentUser.displayName
+  let fnum = 0
 
   const newest = recipeslist && recipeslist.slice(0,5).map(rec => {
       if(props.pattern.test(rec.name.toLowerCase()) || props.pattern === '')
@@ -33,7 +34,12 @@ function Home(props) {
   const ingredsnum = recipeslist && recipeslist.map(el => {
     return el.ingredients
   })
-
+  const favnum = recipeslist && recipeslist.map(el => {
+    if(el.favorite) {
+      return fnum++
+    } 
+  })
+  
   useEffect(() => {
     const recipeRef = firebase.database().ref('Recipes')
     let query = recipeRef.orderByChild('uid').equalTo(userid); 
@@ -80,7 +86,7 @@ function Home(props) {
         <div className="statsboxcont">
           <div>
             <div className="statsbox">
-              <h4>{recipes.length}<h6>Recipes</h6></h4>
+              <h4>{recipeslist.length}<h6>Recipes</h6></h4>
               <i className="fal fa-hat-chef"></i>
             </div>
             <div className="statsbox">
@@ -88,7 +94,7 @@ function Home(props) {
               <i className="fal fa-utensils"></i>
             </div>
             <div className="statsbox">
-              <h4>5<h6>Favorites</h6></h4>
+              <h4>{fnum}<h6>Favorites</h6></h4>
               <i className="fal fa-heart"></i>
             </div>
           </div>

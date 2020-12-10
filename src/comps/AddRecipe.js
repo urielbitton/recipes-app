@@ -33,6 +33,7 @@ function AddRecipe(props) {
   const formRef2 = useRef()
   const history = useHistory()
   let userid = firebase.auth().currentUser.uid
+  let username = firebase.auth().currentUser.displayName
  
   const ingredientsrow = ingredients && ingredients.map(el => {
     return <h6> 
@@ -56,9 +57,9 @@ function AddRecipe(props) {
   }) 
 
   function createRecipe() {
-    if(name.length && ingredients.length) {
+    if(name.length && ingredients.length && recipe.length) {
       const recipeRef = firebase.database().ref('Recipes')
-      const recipes = {
+      const recipes = { 
         name,
         img,
         ktype,
@@ -74,6 +75,7 @@ function AddRecipe(props) {
         favorite,
         ratings,
         uid: userid,
+        creator: username,
       }  
       recipeRef.push(recipes)
       setOpencreate(false)
@@ -120,6 +122,10 @@ function AddRecipe(props) {
         setUpdate(prev => prev+1)
       }
     })
+  }
+  function parseVideoLink(val) {
+    let parsedlink = val.split('=')[1].split('&')[0] 
+    setVideo(parsedlink)
   }
   
   useEffect(() => {
@@ -238,7 +244,7 @@ function AddRecipe(props) {
               </div>
               <textarea placeholder="Recipe notes..." onChange={(e) => setNotes(e.target.value)}/>
               <button onClick={() => setFavorite(prev => !prev)}><i className="fas fa-heart"></i>{favorite?"Favorited":"Add To Favorite"}</button>
-              <Inputs title="Video link" placeholder="Provide youtube link" onchange={(val) => setVideo(val)} />
+              <Inputs title="Video link" placeholder="Provide youtube link" onchange={(val) => parseVideoLink(val)} />
             </div>
           </div> 
           <div className="stagebtndiv">
